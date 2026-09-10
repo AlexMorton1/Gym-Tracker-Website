@@ -1,0 +1,193 @@
+:root {
+    --bg-color: #0d1117;
+    --panel-bg: #010409;
+    --text-color: #c9d1d9;
+    --muted-text: #8b949e;
+    --border-color: #30363d;
+    --cell-empty: #161b22;
+    --cell-active: #39d353;
+}
+* { box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    padding: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+h1 { font-size: 1.4rem; margin: 0; }
+.subtitle {
+    color: var(--muted-text);
+    font-size: 0.85rem;
+    margin-top: 4px;
+}
+.header-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 2rem;
+}
+.controls-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+select, .btn {
+    background-color: #21262d;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    font-family: inherit;
+}
+.btn:hover, select:hover { border-color: var(--muted-text); }
+.btn.primary {
+    background-color: var(--cell-active);
+    color: #04260f;
+    border-color: var(--cell-active);
+    font-weight: 600;
+}
+.btn.primary:hover { filter: brightness(1.08); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.habit-section {
+    background: var(--panel-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+.habit-title { margin: 0; font-size: 1.1rem; }
+.user-row-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.today-btn {
+    background-color: #21262d;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+.today-btn:hover { border-color: var(--cell-active); }
+.today-btn.done {
+    background-color: var(--cell-active);
+    color: #04260f;
+    border-color: var(--cell-active);
+    font-weight: 600;
+}
+.today-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* Graph Layout */
+.graph-container {
+    display: flex;
+    flex-direction: column;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+}
+.months-header {
+    position: relative;
+    height: 20px;
+    margin-left: 35px;
+    font-size: 12px;
+    color: var(--muted-text);
+}
+.month-label { position: absolute; top: 0; }
+.graph-body { display: flex; }
+.days-sidebar {
+    display: grid;
+    grid-template-rows: repeat(7, 14px);
+    gap: 4px;
+    margin-right: 8px;
+    font-size: 12px;
+    color: var(--muted-text);
+    width: 27px;
+    text-align: left;
+    position: sticky;
+    left: 0;
+    background: var(--panel-bg);
+    z-index: 2;
+}
+.days-sidebar span { line-height: 14px; }
+.grid { display: flex; gap: 4px; }
+.column { display: flex; flex-direction: column; gap: 4px; }
+.cell {
+    width: 14px;
+    height: 14px;
+    background-color: var(--cell-empty);
+    border-radius: 2px;
+    box-sizing: border-box;
+}
+.cell:hover { box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.4); }
+.cell.completed { background-color: var(--cell-active); }
+.cell.hidden { visibility: hidden; }
+
+.empty-state {
+    color: var(--muted-text);
+    font-size: 0.9rem;
+    padding: 2rem 0;
+    text-align: center;
+}
+.status-line {
+    color: var(--muted-text);
+    font-size: 0.85rem;
+    padding: 2rem 0;
+    text-align: center;
+}
+.status-line.error { color: #f85149; }
+
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(1, 4, 9, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+.modal-box {
+    background: var(--panel-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    width: 320px;
+    max-width: 90vw;
+}
+.modal-box h3 { margin: 0 0 1rem 0; font-size: 1rem; }
+.modal-box input {
+    width: 100%;
+    background: #0d1117;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 8px 10px;
+    color: var(--text-color);
+    font-size: 0.95rem;
+    font-family: inherit;
+    margin-bottom: 6px;
+}
+.modal-box input:focus {
+    outline: none;
+    border-color: var(--cell-active);
+}
+.modal-error {
+    color: #f85149;
+    font-size: 0.8rem;
+    min-height: 1.1em;
+    margin-bottom: 10px;
+}
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
