@@ -1,0 +1,4 @@
+node_modules/
+habit-tracker.local.db
+habit-tracker.local.db-*
+.env

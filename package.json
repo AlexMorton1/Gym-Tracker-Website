@@ -1,0 +1,18 @@
+{
+  "name": "team-habit-tracker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Shared team habit tracker with an Express backend and a Turso (libSQL) database",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.14.0",
+    "express": "^4.19.2"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
