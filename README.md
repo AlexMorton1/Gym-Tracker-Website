@@ -10,7 +10,12 @@ data — no accounts required, just a shared URL.
 habit-tracker-app/
   server.js       Express server + API routes
   db.js           Database schema, seeding, and queries (Turso / libSQL)
-  public/         Frontend (plain HTML/CSS/JS, no build step)
+  public/
+    index.html    Home page (ticker + 14-day calendar)      -> home.js
+    log.html      Log activity page (mark days, add people) -> app.js
+    config.js     <-- EDIT THIS to customise the site name, ticker, colours
+    nav.js        Shared top navigation bar
+    styles.css
   package.json
   .env.example    Template for local environment variables
 ```
@@ -18,6 +23,29 @@ habit-tracker-app/
 Current data: one habit ("Gym") with one person ("Alex"), no completions yet
 — a clean slate. Use the "+ Add person" button in the app to add your
 friends once it's running.
+
+---
+
+## Customising the home page
+
+Everything is in `public/config.js`:
+
+- **Site name** (top-left of the bar): `siteName`
+- **Ticker headlines**: the `ticker.rules` list. Each rule covers a range of
+  "days since last activity" and has one or more message templates
+  (`{name}`, `{days}`, `{dayWord}`, `{habit}`, `{date}`) plus a colour `tone`.
+  The first matching rule wins; add, remove or reword rules freely.
+- **Habit-specific headlines**: add `habit: 'Run'` (or `habit: ['Gym', 'Run']`)
+  to a rule so it only applies when that's what the person last did. Rules
+  without `habit` match any habit. Put habit-specific rules above general
+  ones, since the first match wins.
+- **Ticker speed / label / separator**: `pixelsPerSecond`, `label`, `separator`
+- **Calendar colours**: `calendar.habitColors` (by habit name), `bothColor`
+  (more than one habit on the same day), and `calendar.days` (default 14)
+
+Note: the calendar colours habits by *name*. Right now the database only
+contains the "Gym" habit, so "Run" (red) and the purple "both" colour will
+only appear once a habit named "Run" exists.
 
 ---
 

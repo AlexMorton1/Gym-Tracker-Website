@@ -3,26 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Team Habit Tracker</title>
+    <title>Home</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <script src="config.js"></script>
+    <script src="nav.js"></script>
 
-    <div class="header-controls">
-        <div>
-            <h1>Team Habits</h1>
-            <div class="subtitle">Shared across everyone using this app</div>
-        </div>
-        <div class="controls-row">
-            <button id="add-person-btn" class="btn">+ Add person</button>
-            <select id="habit-selector"></select>
+    <div id="ticker" class="ticker" aria-label="Activity headlines"></div>
+
+    <div class="page">
+        <h1>Last 14 days</h1>
+        <div class="subtitle">Who has been active, day by day</div>
+
+        <div id="legend" class="legend"></div>
+        <div id="calendar-container">
+            <div class="status-line">Loading activity…</div>
         </div>
     </div>
 
-    <div id="tracker-container">
-        <div class="status-line">Loading tracker…</div>
-    </div>
-
-    <script src="app.js"></script>
+    <script src="home.js"></script>
 </body>
 </html>
