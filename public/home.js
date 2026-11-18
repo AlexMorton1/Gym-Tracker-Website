@@ -149,10 +149,38 @@
     const habitColors = {};
     Object.entries(c.habitColors).forEach(([k, v]) => { habitColors[k.toLowerCase()] = v; });
 
+    // --- colour helpers ---
+    const comboKey = names => names.map(n => n.trim().toLowerCase()).sort().join('+');
+    const comboColors = {};
+    Object.entries(c.combinationColors || {}).forEach(([k, v]) => { comboColors[comboKey(k.split('+'))] = v; });
+
+    const rainbowHabits = (c.rainbowHabits || []).map(h => h.toLowerCase());
+    const rainbowGradient = `linear-gradient(135deg, ${c.rainbowColors.join(', ')})`;
+
+    function hexToRgb(hex) {
+        let h = hex.replace('#', '');
+        if (h.length === 3) h = h.split('').map(ch => ch + ch).join('');
+        return [0, 2, 4].map(i => parseInt(h.slice(i, i + 2), 16));
+    }
+    function blend(hexColours) {
+        const rgbs = hexColours.map(hexToRgb);
+        const avg = [0, 1, 2].map(i => Math.round(rgbs.reduce((sum, rgb) => sum + rgb[i], 0) / rgbs.length));
+        return `rgb(${avg.join(', ')})`;
+    }
+    const baseColour = habit => habitColors[habit.toLowerCase()] || c.defaultColor;
+
+    // Returns a CSS background for a day's set of habits
     function colourFor(habitSet) {
-        if (habitSet.size > 1) return c.bothColor;
-        const only = [...habitSet][0];
-        return habitColors[only.toLowerCase()] || c.defaultColor;
+        const habits = [...habitSet];
+        if (habits.length === 1) return baseColour(habits[0]);
+
+        const lower = habits.map(h => h.toLowerCase());
+        if (rainbowHabits.length > 0 && rainbowHabits.every(h => lower.includes(h))) {
+            return rainbowGradient;
+        }
+        const explicit = comboColors[comboKey(habits)];
+        if (explicit) return explicit;
+        return blend(habits.map(baseColour));
     }
 
     // Oldest day on the left, today on the right
@@ -174,8 +202,16 @@
         item.append(sw, document.createTextNode(label));
         legendEl.appendChild(item);
     }
-    Object.keys(tracker).forEach(habit => addLegend(habitColors[habit.toLowerCase()] || c.defaultColor, habit));
-    if (Object.keys(tracker).length > 1) addLegend(c.bothColor, 'Both');
+    const habitsInUse = Object.keys(tracker);
+    habitsInUse.forEach(habit => addLegend(baseColour(habit), habit));
+    if (habitsInUse.length > 1) {
+        Object.entries(c.combinationColors || {}).forEach(([combo, colour]) => addLegend(colour, combo.split('+').join(' + ')));
+        addLegend(`linear-gradient(90deg, ${habitsInUse.map(baseColour).join(', ')})`, 'Other combinations (blended)');
+    }
+    const lowerInUse = habitsInUse.map(h => h.toLowerCase());
+    if (rainbowHabits.length > 0 && rainbowHabits.every(h => lowerInUse.includes(h))) {
+        addLegend(rainbowGradient, c.rainbowHabits.join(' + '));
+    }
 
     if (people.size === 0) {
         calendarEl.innerHTML = '<div class="empty-state">No one is on the tracker yet. Add people on the Log activity page.</div>';

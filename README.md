@@ -44,12 +44,17 @@ Everything is in `public/config.js`:
 - **Wrapped page**: the `wrapped` section controls the banner text, the year
   counted (`null` = current year), how many people appear in the top charts
   (`topN`), which habit names count as runs/gym, and the crown emoji.
-- **Calendar colours**: `calendar.habitColors` (by habit name), `bothColor`
-  (more than one habit on the same day), and `calendar.days` (default 14)
+- **Calendar colours**: `calendar.habitColors` (by habit name, including
+  "Mixed Active"), `combinationColors` (pick the colour for a specific
+  combination, e.g. `'Gym+Run'`), `rainbowHabits` / `rainbowColors` (logging
+  all of those habits in one day gives a rainbow box), and `calendar.days`
+  (default 14). Any combination you don't list is shown as an automatic
+  blend of the habits' colours.
 
-Note: the calendar colours habits by *name*. Right now the database only
-contains the "Gym" habit, so "Run" (red) and the purple "both" colour will
-only appear once a habit named "Run" exists.
+Note: the calendar colours habits by *name*. A habit only appears once it
+exists in the database. Right now that's just "Gym", so "Run" and
+"Mixed Active" (and any blended or rainbow boxes) will only show up after
+habits with those exact names have been added.
 
 ---
 

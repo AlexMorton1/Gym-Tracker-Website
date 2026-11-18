@@ -124,12 +124,25 @@ window.SITE_CONFIG = {
 
     // Box colour for each habit, keyed by habit name (case-insensitive)
     habitColors: {
-      Run: '#f85149',   // red
-      Gym: '#388bfd'    // blue
+      Run: '#f85149',            // red
+      Gym: '#388bfd',            // blue
+      'Mixed Active': '#FFEA00'  // yellow
     },
 
-    // Box colour when MORE THAN ONE habit was logged on the same day
-    bothColor: '#a371f7',   // purple
+    // When more than one habit is logged on the same day, the box is a
+    // BLEND (average) of those habits' colours automatically. If you'd
+    // rather pick the colour for a specific combination yourself, list it
+    // here. Habit names are joined with "+" and the order doesn't matter.
+    combinationColors: {
+      'Gym+Run': '#a371f7'       // purple (instead of the auto-blend)
+      // 'Run+Mixed Active': '#ff9500',
+      // 'Gym+Mixed Active': '#3fb950',
+    },
+
+    // If a person logs ALL of these habits on the same day, their box is
+    // a rainbow instead of a blend. Set to [] to turn the rainbow off.
+    rainbowHabits: ['Run', 'Gym', 'Mixed Active'],
+    rainbowColors: ['#f85149', '#ff9500', '#FFEA00', '#3fb950', '#388bfd', '#a371f7'],
 
     // Colour for a habit that isn't listed in habitColors above
     defaultColor: '#39d353'
