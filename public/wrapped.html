@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wrapped</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <script src="config.js"></script>
+    <script src="nav.js"></script>
+
+    <div class="page wrapped">
+        <div id="wrapped-banner" class="wrapped-banner"></div>
+
+        <section class="chart-card">
+            <h2 id="runs-title">Most runs</h2>
+            <div id="runs-chart"><div class="status-line">Loading…</div></div>
+        </section>
+
+        <section class="chart-card">
+            <h2 id="gym-title">Most gym sessions</h2>
+            <div id="gym-chart"><div class="status-line">Loading…</div></div>
+        </section>
+
+        <section class="chart-card">
+            <h2>Most active</h2>
+            <div class="subtitle">Days run + days at the gym, everyone</div>
+            <div id="active-legend" class="legend"></div>
+            <div id="active-chart"><div class="status-line">Loading…</div></div>
+        </section>
+    </div>
+
+    <div id="chart-tooltip" class="chart-tooltip" role="tooltip"></div>
+    <script src="wrapped.js"></script>
+</body>
+</html>

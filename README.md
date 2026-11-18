@@ -13,6 +13,7 @@ habit-tracker-app/
   public/
     index.html    Home page (ticker + 14-day calendar)      -> home.js
     log.html      Log activity page (mark days, add people) -> app.js
+    wrapped.html  Year-end Wrapped page (bar charts)         -> wrapped.js
     config.js     <-- EDIT THIS to customise the site name, ticker, colours
     nav.js        Shared top navigation bar
     styles.css
@@ -40,6 +41,9 @@ Everything is in `public/config.js`:
   without `habit` match any habit. Put habit-specific rules above general
   ones, since the first match wins.
 - **Ticker speed / label / separator**: `pixelsPerSecond`, `label`, `separator`
+- **Wrapped page**: the `wrapped` section controls the banner text, the year
+  counted (`null` = current year), how many people appear in the top charts
+  (`topN`), which habit names count as runs/gym, and the crown emoji.
 - **Calendar colours**: `calendar.habitColors` (by habit name), `bothColor`
   (more than one habit on the same day), and `calendar.days` (default 14)
 

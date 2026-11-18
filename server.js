@@ -10,6 +10,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Friendly URL for the log activity page
 app.get('/log', (req, res) => res.sendFile(path.join(__dirname, 'public', 'log.html')));
+app.get('/wrapped', (req, res) => res.sendFile(path.join(__dirname, 'public', 'wrapped.html')));
 
 // GET the full tracker: { habitName: { personName: ["YYYY-MM-DD", ...] } }
 app.get('/api/tracker', async (req, res) => {

@@ -95,6 +95,27 @@ window.SITE_CONFIG = {
   },
 
   // ------------------------------------------------------------------
+  //  WRAPPED PAGE (end-of-year summary)
+  // ------------------------------------------------------------------
+  wrapped: {
+    // Banner shown at the very top of the page
+    banner: 'There is still time!!!! (Wrapped ends December 31st)',
+
+    // Which year to count. null = the current year.
+    year: null,
+
+    // How many people to show in the "most runs" / "most gym" charts
+    topN: 5,
+
+    // Which habit names count as "runs" and "gym sessions" (case-insensitive)
+    runHabit: 'Run',
+    gymHabit: 'Gym',
+
+    // Emoji shown above the most active person's name
+    crown: '👑'
+  },
+
+  // ------------------------------------------------------------------
   //  14-DAY CALENDAR
   // ------------------------------------------------------------------
   calendar: {

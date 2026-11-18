@@ -2,7 +2,14 @@
 (function () {
     const cfg = window.SITE_CONFIG || {};
     const path = location.pathname.replace(/\/+$/, '');
-    const onLog = path.endsWith('/log') || path.endsWith('/log.html');
+
+    // Add or reorder pages here
+    const pages = [
+        { label: 'Home',         href: '/',              match: ['', '/index.html'] },
+        { label: 'Log activity', href: '/log.html',      match: ['/log', '/log.html'] },
+        { label: 'Wrapped',      href: '/wrapped.html',  match: ['/wrapped', '/wrapped.html'] }
+    ];
+    const current = pages.find(p => p.match.includes(path)) || pages[0];
 
     const nav = document.createElement('nav');
     nav.className = 'navbar';
@@ -14,13 +21,9 @@
 
     const links = document.createElement('div');
     links.className = 'nav-links';
-
-    [
-        { label: 'Home', href: '/', active: !onLog },
-        { label: 'Log activity', href: '/log.html', active: onLog }
-    ].forEach(item => {
+    pages.forEach(item => {
         const a = document.createElement('a');
-        a.className = 'nav-btn' + (item.active ? ' active' : '');
+        a.className = 'nav-btn' + (item === current ? ' active' : '');
         a.href = item.href;
         a.textContent = item.label;
         links.appendChild(a);
@@ -31,5 +34,5 @@
 
     nav.append(brand, links, spacer);
     document.body.insertBefore(nav, document.body.firstChild);
-    document.title = (onLog ? 'Log activity' : 'Home') + ' · ' + (cfg.siteName || 'Habit Tracker');
+    document.title = current.label + ' · ' + (cfg.siteName || 'Habit Tracker');
 })();
