@@ -31,15 +31,17 @@
     Object.entries(cfg.calendar.habitColors).forEach(([k, v]) => { habitColors[k.toLowerCase()] = v; });
     const runColor = habitColors[w.runHabit.toLowerCase()] || '#f85149';
     const gymColor = habitColors[w.gymHabit.toLowerCase()] || '#388bfd';
+    const mixedColor = habitColors[w.mixedColor.toLowerCase()] || '#FFEA00';
 
     const counts = new Map(); // name -> { run, gym }
     for (const [habit, users] of Object.entries(tracker)) {
         const key = habit.toLowerCase();
         for (const [name, dates] of Object.entries(users)) {
-            if (!counts.has(name)) counts.set(name, { run: 0, gym: 0 });
+            if (!counts.has(name)) counts.set(name, { run: 0, gym: 0, mix: 0 });
             const inYear = dates.filter(d => d.startsWith(year + '-')).length;
             if (key === w.runHabit.toLowerCase()) counts.get(name).run += inYear;
             if (key === w.gymHabit.toLowerCase()) counts.get(name).gym += inYear;
+            if (key === w.mixedHabit.toLowerCase()) counts.get(name).mix += inYear;
         }
     }
     const people = [...counts.entries()].map(([name, c]) => ({ name, run: c.run, gym: c.gym, total: c.run + c.gym }));
@@ -159,7 +161,7 @@
     const maxTotal = everyone.length ? everyone[0].total : 0;
 
     const legend = document.getElementById('active-legend');
-    [[w.runHabit, runColor], [w.gymHabit, gymColor]].forEach(([label, colour]) => {
+    [[w.runHabit, runColor], [w.gymHabit, gymColor], [w.mixedHabit, mixedColor]].forEach(([label, colour]) => {
         const item = document.createElement('span');
         item.className = 'legend-item';
         const sw = document.createElement('span');
@@ -177,7 +179,8 @@
             crown: p.total === maxTotal,   // ties all get a crown
             segments: [
                 { value: p.run, color: runColor, label: w.runHabit },
-                { value: p.gym, color: gymColor, label: w.gymHabit }
+                { value: p.gym, color: gymColor, label: w.gymHabit },
+                { value: p.mix, color: mixedColor, label: w.mixedHabit }
             ]
         })), maxTotal);
     }
