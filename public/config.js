@@ -110,8 +110,6 @@ window.SITE_CONFIG = {
     // Which habit names count as "runs" and "gym sessions" (case-insensitive)
     runHabit: 'Run',
     gymHabit: 'Gym',
-    mixedHabit: 'Mixed Active',
-    
 
     // Emoji shown above the most active person's name
     crown: '👑'
